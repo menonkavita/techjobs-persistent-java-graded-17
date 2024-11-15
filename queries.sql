@@ -14,5 +14,6 @@ where location = "Saint Louis City"
 
 
 -- Part 3
+Drop table job
 
 -- Part 4
