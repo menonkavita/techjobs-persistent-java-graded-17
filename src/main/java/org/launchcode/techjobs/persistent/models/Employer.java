@@ -20,7 +20,7 @@ public class Employer extends AbstractEntity {
 
     // Task 3.Employer.1: added job field to Employer class
     @OneToMany
-    @JoinColumn(name="id")  // joins by column job id; means Employer is the owner of this relationship
+    @JoinColumn(name="employer_id")  // joins by column job id; means Employer is the owner of this relationship
     // & the corresponding table (Job) has a column with a foreign key to the referenced table (Employer).
     private List<Job> jobs = new ArrayList<>();
 

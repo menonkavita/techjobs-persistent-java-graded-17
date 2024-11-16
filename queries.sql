@@ -9,11 +9,10 @@
 -- Part 2
 --Write a query to list the names of the employers in St. Louis City.
 --Do NOT specify an ordering for the query results.
-Select name from employer
-where location = "Saint Louis City"
+SELECT name FROM employer WHERE location = "St. Louis City";
 
 
 -- Part 3
-Drop table job
+DROP TABLE job;
 
 -- Part 4

@@ -12,7 +12,7 @@ import org.springframework.web.bind.annotation.*;
 import java.util.Optional;
 
 @Controller
-@RequestMapping("employers")
+@RequestMapping("/employers")
 public class EmployerController {
 
     @Autowired
@@ -22,7 +22,9 @@ public class EmployerController {
     // Add an index method that responds at /employers with a list of all employers
     // in the database
     // displaying index of Employer
-    @GetMapping
+
+    //@GetMapping("/")
+    @RequestMapping("/")
     public String displayEmployers(Model model){
         model.addAttribute("title", "Employers");
         model.addAttribute("employers", employerRepository.findAll());
@@ -52,7 +54,7 @@ public class EmployerController {
 
         employerRepository.save(newEmployer);
         //return "redirect:";             // Todo: --- Note to K: Redirect to any specific path? ---
-        return "redirect:/employers";
+        return "redirect:/employers/";
     }
 
 

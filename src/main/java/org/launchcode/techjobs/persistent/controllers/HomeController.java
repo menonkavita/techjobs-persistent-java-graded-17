@@ -3,8 +3,10 @@ package org.launchcode.techjobs.persistent.controllers;
 import jakarta.validation.Valid;
 import org.launchcode.techjobs.persistent.models.Employer;
 import org.launchcode.techjobs.persistent.models.Job;
+import org.launchcode.techjobs.persistent.models.Skill;
 import org.launchcode.techjobs.persistent.models.data.EmployerRepository;
 import org.launchcode.techjobs.persistent.models.data.JobRepository;
+import org.launchcode.techjobs.persistent.models.data.SkillRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -27,6 +29,9 @@ public class HomeController {
     @Autowired
     private JobRepository jobRepository;
 
+    @Autowired
+    private SkillRepository skillRepository;
+
 
     @RequestMapping("/")
     public String index(Model model) {
@@ -41,26 +46,34 @@ public class HomeController {
 	model.addAttribute("title", "Add Job");
         model.addAttribute(new Job());
         model.addAttribute("employers", employerRepository.findAll());
+        model.addAttribute("skills", skillRepository.findAll());
         return "add";
     }
 
     @PostMapping("add")
     public String processAddJobForm(@ModelAttribute @Valid Job newJob,
-                                       Errors errors, Model model, @RequestParam int employerId) {
+                                    Errors errors, Model model,
+                                    @RequestParam int employerId,
+                                    @RequestParam List<Integer> skills) {
 
-        if (errors.hasErrors()) {
-	    model.addAttribute("title", "Add Job");
+        if (errors.hasErrors()) {       // checking if job model is valid, then query database for skills
+	        model.addAttribute("title", "Add Job");
             return "add";
         }
 
-        Optional <Employer> emp = employerRepository.findById(employerId);
-        if(emp.isEmpty()){
-            model.addAttribute("title", "Invalid Employer ");
-        }
-        else{
-            Employer employer = emp.get();      // Gets the Employer object based on id
-            newJob.setEmployer(employer);       // Setting the employer name for new job object
-        }
+        // Employer
+        Optional <Employer> employerOptional = employerRepository.findById(employerId);
+
+        //if(emp.isEmpty()){                // Check for empty Employer obj not required, since picking employer from select box
+        Employer employer = employerOptional.get();      // Gets the Employer object based on id
+        newJob.setEmployer(employer);       // Setting the employer name for new job object
+
+
+        // Skills
+//        List<Skill> skillObjs = (List<Skill>) skillRepository.findAllById(skills);
+        List<Skill> skillObjs = (List<Skill>) skillRepository.findAllById(skills);
+        //             skillRepository.findAllById((Iterable<Integer>) any);
+        newJob.setSkills(skillObjs);
 
         jobRepository.save(newJob);
         return "redirect:/";
@@ -71,17 +84,11 @@ public class HomeController {
 
         Optional<Job> jobObj = jobRepository.findById(jobId);
 
-        if(jobObj.isEmpty()){
-            model.addAttribute("title", "Job Id " + jobId + " doesn't exist");      // Msg will never be displayed coz user will click on Job from index page
-            model.addAttribute("job", jobObj.get() );
-            //return "redirect:/";
-            //return "view";
-        }
-        else{
+            // if(jobObj.isEmpty()){       // -- Not required; Coz user will always click on Job from index page
+
             Job job = jobObj.get();
             model.addAttribute("title", "Job: " + job.getName());
             model.addAttribute("job", job);
-        }
             return "view";
     }
 
