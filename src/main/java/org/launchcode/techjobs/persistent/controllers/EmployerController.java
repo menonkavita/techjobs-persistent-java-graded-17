@@ -12,7 +12,7 @@ import org.springframework.web.bind.annotation.*;
 import java.util.Optional;
 
 @Controller
-@RequestMapping("/employers")
+@RequestMapping("employers")
 public class EmployerController {
 
     @Autowired
@@ -23,8 +23,8 @@ public class EmployerController {
     // in the database
     // displaying index of Employer
 
-    //@GetMapping("/")
-    @RequestMapping("/")
+    @GetMapping
+    //@RequestMapping("/employers")
     public String displayEmployers(Model model){
         model.addAttribute("title", "Employers");
         model.addAttribute("employers", employerRepository.findAll());

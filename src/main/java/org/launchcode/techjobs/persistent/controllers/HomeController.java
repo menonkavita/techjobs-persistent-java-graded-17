@@ -14,6 +14,7 @@ import org.springframework.validation.Errors;
 import org.springframework.web.bind.annotation.*;
 
 
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
 
@@ -52,7 +53,8 @@ public class HomeController {
 
     @PostMapping("add")
     public String processAddJobForm(@ModelAttribute @Valid Job newJob,
-                                    Errors errors, Model model,
+                                    Errors errors,
+                                    Model model,
                                     @RequestParam int employerId,
                                     @RequestParam List<Integer> skills) {
 
@@ -64,15 +66,19 @@ public class HomeController {
         // Employer
         Optional <Employer> employerOptional = employerRepository.findById(employerId);
 
-        //if(emp.isEmpty()){                // Check for empty Employer obj not required, since picking employer from select box
-        Employer employer = employerOptional.get();      // Gets the Employer object based on id
-        newJob.setEmployer(employer);       // Setting the employer name for new job object
+        // Check for empty Employer obj not required since picking employer from select box
+        // But tests failing, so adding check to see if Optional Employee has value in it
+        if(employerOptional.isEmpty()) {
+            model.addAttribute("title", "Invalid Employer ID: " + employerId);
+        }
+        else {
+            Employer employer = employerOptional.get();      // Gets the Employer object based on id
+            newJob.setEmployer(employer);       // Setting the employer name for new job object
+        }
 
 
         // Skills
-//        List<Skill> skillObjs = (List<Skill>) skillRepository.findAllById(skills);
         List<Skill> skillObjs = (List<Skill>) skillRepository.findAllById(skills);
-        //             skillRepository.findAllById((Iterable<Integer>) any);
         newJob.setSkills(skillObjs);
 
         jobRepository.save(newJob);
