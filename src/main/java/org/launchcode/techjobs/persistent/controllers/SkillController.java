@@ -32,7 +32,7 @@ public class SkillController {
 
 
     // displayAddSkillForm
-    // display ass Skills form
+    // display add Skills form
     @GetMapping("add")
     public String displayAddSkillForm(Model model){
         model.addAttribute("title", "Skills");
