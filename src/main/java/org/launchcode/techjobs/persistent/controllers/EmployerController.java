@@ -23,13 +23,14 @@ public class EmployerController {
     // in the database
     // displaying index of Employer
 
-    @GetMapping
-    //@RequestMapping("/employers")
-    public String displayEmployers(Model model){
+
+    @GetMapping("/")
+    public String index(Model model){
         model.addAttribute("title", "Employers");
         model.addAttribute("employers", employerRepository.findAll());
         return "employers/index";
     }
+
 
     // displaying the Add Employer Form
     @GetMapping("add")
