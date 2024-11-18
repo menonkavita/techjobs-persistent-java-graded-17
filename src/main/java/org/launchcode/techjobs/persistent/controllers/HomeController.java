@@ -60,7 +60,7 @@ public class HomeController {
 
         if (errors.hasErrors()) {       // checking if job model is valid, then query database for skills
 	        model.addAttribute("title", "Add Job");
-            return "add";
+            return "redirect: add";
         }
 
         // Employer
@@ -75,7 +75,6 @@ public class HomeController {
             Employer employer = employerOptional.get();      // Gets the Employer object based on id
             newJob.setEmployer(employer);       // Setting the employer name for new job object
         }
-
 
         // Skills
         List<Skill> skillObjs = (List<Skill>) skillRepository.findAllById(skills);

@@ -15,7 +15,7 @@ import java.util.Optional;
 @RequestMapping("skills")
 public class SkillController {
 
-    // Task 2: Controller #5 Crating SkillsController
+    // Task 2: Controller #5 Creating SkillsController
 
     @Autowired
     private SkillRepository skillRepository;

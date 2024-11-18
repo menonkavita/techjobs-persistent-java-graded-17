@@ -21,9 +21,8 @@ public class Skill extends AbstractEntity {
     private List<Job> jobs = new ArrayList<>();
 
 
-    public Skill(){}        // no-arg / empty Constructor
-
-    // Does this class need a Constructor with parameters??
+    // no-arg / empty Constructor sent to add.html
+    public Skill(){}
 
 
     // accessor methods

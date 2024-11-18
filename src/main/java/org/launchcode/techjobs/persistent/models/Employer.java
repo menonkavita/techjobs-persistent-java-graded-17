@@ -20,17 +20,15 @@ public class Employer extends AbstractEntity {
 
     // Task 3.Employer.1: added job field to Employer class
     @OneToMany
-    @JoinColumn(name="employer_id")  // joins by column job id; means Employer is the owner of this relationship
-    // & the corresponding table (Job) has a column with a foreign key to the referenced table (Employer).
+    @JoinColumn(name="employer_id")
     private List<Job> jobs = new ArrayList<>();
+    // joins by column employer_id; means Employer is the owner of this relationship
+    // & the corresponding table (Job) has a column with a foreign key to the referenced table (Employer).
 
 
     // Blank or No-arg Constructor required for Hibernate to create an object
+    // empty Constructor sent to add.html
     public Employer(){}
-
-
-    // Constructor with parameters??
-
 
 
     // accessor methods

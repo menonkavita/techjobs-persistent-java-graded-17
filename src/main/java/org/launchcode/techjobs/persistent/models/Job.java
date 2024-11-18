@@ -22,7 +22,7 @@ public class Job extends AbstractEntity {
     @ManyToOne
     private Employer employer;
 
-    @ManyToMany             // --- Don't think mappedBy to field in Skill is required here
+    @ManyToMany
     private List<Skill> skills = new ArrayList<>();  // make final??
 
 
