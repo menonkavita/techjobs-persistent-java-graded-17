@@ -126,4 +126,11 @@ public class SkillController {
     }
 
 
+    // delete @GetMapping
+
+
+
+
+    // delete @PostMapping
+
 }

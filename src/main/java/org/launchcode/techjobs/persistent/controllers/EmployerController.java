@@ -119,8 +119,45 @@ public class EmployerController {
 }
 
 
-// delete
+    // pick employer to delete
+    @GetMapping("delete")
+    public String delete(Model model){
+        model.addAttribute("title", "Click on Employer to Delete");
+        model.addAttribute("employers", employerRepository.findAll());
+        return "employers/delete";
+    }
 
+
+    // delete @GetMapping
+    @GetMapping("delete-employer/{id}")
+    public String deleteEmployer(@PathVariable int id, Model model){
+
+        Optional <Employer> employerOptional = employerRepository.findById(id);
+
+        if(employerOptional.isPresent()){
+            Employer empObj = employerOptional.get();
+
+            model.addAttribute("title", "Delete Employer: " + empObj.getName());
+            model.addAttribute("employer", empObj);
+        }
+        else{
+            return "employers/delete";
+        }
+        return "employers/delete-employer";
+    }
+
+
+
+    // delete @PostMapping
+    @PostMapping("delete-employer/{id}")
+    public String processDeleteEmployer(@PathVariable int id){
+        Optional <Employer> employerOptional = employerRepository.findById(id);
+        Employer empObj = employerOptional.get();
+
+        employerRepository.delete(empObj);;
+
+        return "redirect:/employers/";
+    }
 
 }
 

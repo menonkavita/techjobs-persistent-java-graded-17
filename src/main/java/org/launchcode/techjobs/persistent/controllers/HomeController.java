@@ -125,6 +125,38 @@ public class HomeController {
     // PostMapping for edit button click
 
 
-    // Delete Job, Employers, Skills
+    // Delete pick Job to delete @GetMapping
+    @GetMapping("delete")
+    public String deleteJobForm(Model m){
+        m.addAttribute("title", "Delete Job");
+        m.addAttribute("jobs", jobRepository.findAll());
+        return "/delete";
+    }
+
+
+    // Delete Job, Employers, Skills @GetMapping
+    @GetMapping("delete-job/{id}")
+    public String selectedDeleteJob(@PathVariable int id, Model m){
+        Optional <Job> jobOptional = jobRepository.findById(id);
+        Job jobObj = jobOptional.get();
+
+        m.addAttribute("title", "Delete Job: " + jobObj.getName());
+        m.addAttribute("job", jobObj);
+
+        return "/delete-job";
+    }
+
+
+    // Delete Job, Employers, Skills @PostMapping
+    @PostMapping("delete-job/{id}")
+    public String processDeleteJob(@PathVariable int id){
+
+        Optional <Job> jobOptional= jobRepository.findById(id);
+        Job jobObj = jobOptional.get();
+
+        jobRepository.delete(jobObj);
+
+        return "redirect:/";
+    }
 
 }

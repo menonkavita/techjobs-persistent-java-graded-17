@@ -1,0 +1,23 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="https://www.thymeleaf.org">
+<head th:replace="~{fragments :: head}">
+</head>
+<body>
+
+<div th:replace="~{fragments :: page-header}"></div>
+
+<form class="container body-content" method="post">
+    <h1 th:text="${#strings.capitalizeWords(title)}"></h1>
+    <p th:text = "${'Employer Id: ' + employer.id}"></p>
+    <p th:text="${'Name: ' + employer.name}"></p>
+    <p th:text="${'Location: ' + employer.location}"></p>
+
+    <div class="warningText">
+        Note: Please make sure you have the right item to delete.<br>
+        Delete action cannot be undone.
+    </div><br>
+    <input type="submit" value="Click to Delete Employer" class="buttonColor">
+</form>
+
+</body>
+</html>

@@ -60,3 +60,20 @@ div.job-listing {
     width: 80%;
     background-color: #e4e4e4;
 }
+
+.warningText{
+    font-weight:bold;
+    font-size: 16px;
+    color: #f44336;
+}
+
+.buttonColor{
+    cursor:pointer;
+    transition-duration: 0.4s;
+}
+
+.buttonColor:hover{
+    background-color: #f44336;
+    color: white;
+    cursor:pointer;
+}
