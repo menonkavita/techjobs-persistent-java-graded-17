@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html xmlns:th="http://www.thymeleaf.org/">
+<html lang="en" xmlns:th="https://www.thymeleaf.org">
 <head th:replace="~{fragments :: head}"></head>
 
 <body>
@@ -7,17 +7,12 @@
     <p th:unless="${skills} and ${skills.size()}">no jobs!</p>
 
     <div class="container body-content">
-        <h2>Skills</h2>
+        <h1>Click Skill to Update</h1>
         <ul>
             <li th:each="skill : ${skills}">
-                <a th:href="@{'/skills/view/' + ${skill.id}}" th:text="${skill.name}"></a>
+                <a th:href="@{'/skills/update/' + ${skill.id}}" th:text="${skill.name}"></a>
             </li>
         </ul>
-
-        <a th:href="@{'/skills/add'}">Add Skills</a> &nbsp;
-        <a th:href="@{'/skills/edit'}">Edit Skills</a>
-
     </div>
-
 </body>
 </html>

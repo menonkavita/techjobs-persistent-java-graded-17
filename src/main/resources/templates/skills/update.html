@@ -1,0 +1,29 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="https://www.thymeleaf.org">
+<head th:replace="~{fragments :: head}"></head>
+<body class="container  body-content">
+<h1>Edit Skills</h1>
+
+<nav th:replace="~{fragments :: page-header}"></nav>
+
+<form method="post" style="max-width:600px;">
+
+    <input name="id" type="hidden" th:field="${skills.id}" />
+
+    <div class="form-group">
+        <label th:for="name">Skills Name</label>
+        <input name="name" class="form-control" th:field="${skills.name}" />
+        <span th:errors="${skills.name}" class="error"></span>
+    </div>
+
+    <div class="form-group">
+        <label th:for="description">Skills Description</label>
+        <input name="description" class="form-control" th:field="${skills.description}" />
+        <span th:errors="${skills.description}" class="error"></span>
+    </div>
+
+    <input type="submit" value="Update Skills" />
+</form>
+
+</body>
+</html>

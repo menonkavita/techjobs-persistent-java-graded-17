@@ -97,4 +97,34 @@ public class HomeController {
             return "view";
     }
 
+    // edit Jobs, Employers, Skills
+    // path: localhost:8080/edit/
+    @GetMapping("edit")
+    public String displayEditForm(Model model){
+        model.addAttribute("title", "Edit Job");
+        model.addAttribute("jobs", jobRepository.findAll());
+
+        return "edit";
+    }
+
+    // Update Job - GetMapping
+    @GetMapping("update/{jobId}")
+    public String updateJob(@PathVariable int jobId,  Model model){
+        Optional <Job> jobOptional = jobRepository.findById(jobId);
+        Job jobObj = jobOptional.get();
+
+        model.addAttribute("title", "Update Job");
+        model.addAttribute("job", jobObj);
+        model.addAttribute("employers", employerRepository.findAll());
+        model.addAttribute("skills", skillRepository.findAll());
+
+        return "/update";
+    }
+
+
+    // PostMapping for edit button click
+
+
+    // Delete Job, Employers, Skills
+
 }

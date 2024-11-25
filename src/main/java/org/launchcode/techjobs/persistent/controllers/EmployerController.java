@@ -76,5 +76,51 @@ public class EmployerController {
         }
 
     }
+
+    // edit
+    @GetMapping("edit")
+    public String editEmployer(Model model){
+        model.addAttribute("title", "Edit Employer");
+        model.addAttribute("employers", employerRepository.findAll());
+
+        return "employers/edit";
+    }
+
+    // update: have to use to update & save new record
+    // Get the record to update
+    // path: /employers/update/1
+    @GetMapping("update/{id}")
+    public String displayUpdateEmployerForm(Model model, @PathVariable int id) {
+        Optional<Employer> empObj = employerRepository.findById(id);
+        if (empObj.isPresent()) {
+            model.addAttribute("title", "Update Employer");
+            model.addAttribute("employer", empObj.get());
+            return "employers/update";
+        } else {
+
+            return "redirect:../";
+        }
+    }
+
+    // Save the edited record
+    @PostMapping("update/{id}")
+    //@PatchMapping("update")
+    //@PutMapping("update")
+    public String processUpdateEmployerForm(@PathVariable int id, Employer empUpdate){
+
+        Optional <Employer> empOpt = employerRepository.findById(id);
+        Employer empObj = empOpt.get();
+
+        empObj.setName(empUpdate.getName());
+        empObj.setLocation(empUpdate.getLocation());
+
+        employerRepository.save(empObj);
+        return "redirect:/employers/";
+}
+
+
+// delete
+
+
 }
 

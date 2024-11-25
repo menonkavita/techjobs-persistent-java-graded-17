@@ -1,0 +1,17 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="https://www.thymeleaf.org">
+<head th:replace="~{fragments :: head}"></head>
+<body>
+    <nav th:replace="~{fragments :: page-header}"></nav>
+
+    <div class="container body-content">
+        <h1>Click Job to Update</h1>
+        <ul>
+            <li th:each="job : ${jobs}">
+                <a th:href="@{'/update/' + ${job.id}}" th:text="${job.name}"></a>
+            </li>
+        </ul>
+    </div>
+
+</body>
+</html>
