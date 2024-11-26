@@ -123,7 +123,37 @@ public class HomeController {
 
 
     // PostMapping for edit button click
+    @PostMapping("update/{jobId}")
+    public String processUpdateJob(@PathVariable int jobId,
+                                   Job jobUpdated,
+                                   @RequestParam int employerId){
 
+        Optional <Employer> employerOptional = employerRepository.findById(employerId);
+        Employer empObj;
+
+        if(employerOptional.isPresent()){
+            empObj = employerOptional.get();
+        }
+        else{
+            return "/edit";
+        }
+
+        Optional <Job> jobOptional = jobRepository.findById(jobId);
+        if(jobOptional.isPresent()){
+            Job jobObj= jobOptional.get();
+
+            jobObj.setName(jobUpdated.getName());
+            jobObj.setEmployer(empObj);             // Need Employer ID here for foreign key - getting employerId from view & setting employer associated with it here
+            jobObj.setSkills(jobUpdated.getSkills());
+
+            jobRepository.save(jobObj);
+        }
+        else{
+            return "/edit";
+        }
+
+        return "redirect:/";
+    }
 
 
 
