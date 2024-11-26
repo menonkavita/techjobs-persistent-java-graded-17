@@ -125,12 +125,48 @@ public class SkillController {
         return "redirect:/skills/";
     }
 
+    // Pick Skill to delete @GetMapping
+    @GetMapping("delete")
+    public String displayDeleteSkills(Model model){
+        model.addAttribute("title", "Delete Skill");
+        model.addAttribute("skills", skillRepository.findAll());
+
+        return "skills/delete";
+    }
+
 
     // delete @GetMapping
+    @GetMapping("delete-skill/{id}")
+    public String deleteSkill(@PathVariable int id, Model model){
 
+        Optional <Skill> skillOptional= skillRepository.findById(id);
+        if(skillOptional.isPresent()){
+            Skill skillObj = skillOptional.get();
 
+            model.addAttribute("title", "Delete Skill: " + skillObj.getName());
+            model.addAttribute("skill", skillObj);
+        }
+        else{
+            return "skills/delete";
+        }
+
+        return "skills/delete-skill";
+    }
 
 
     // delete @PostMapping
+    @PostMapping("delete-skill/{id}")
+    public String processDeleteSkill(@PathVariable int id){
+        Optional <Skill> skillOptional = skillRepository.findById(id);
+        if(skillOptional.isPresent()){
+            Skill skillObj = skillOptional.get();
+            skillRepository.delete(skillObj);
+        }
+        else {
+            return "skills/delete";
+        }
+
+        return "redirect:/skills/";
+    }
 
 }

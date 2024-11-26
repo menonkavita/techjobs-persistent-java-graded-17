@@ -1,0 +1,25 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="https://www.thymeleaf.org">
+<head th:replace="~{fragments :: head}"></head>
+
+<body>
+<nav th:replace="~{fragments :: page-header}"></nav>
+
+<form class="container  body-content" method="post">
+
+    <h1 th:text="${'Delete Skill: ' + skill.name}">Default Title</h1>
+
+    <div class="job-listing">
+        <p th:text="${'Name: ' + skill.name}"></p>
+        <p th:text="${'Description: ' + skill.description}"></p>
+    </div>
+
+    <div class="warningText">
+        Please make sure you have the right item to delete. <br>
+        Delete action cannot be undone.
+    </div><br>
+    <input type="submit" value="Delete Skill" class="buttonColor">
+</form>
+
+</body>
+</html>

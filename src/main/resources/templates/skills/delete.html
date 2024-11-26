@@ -1,0 +1,19 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="https://www.thymeleaf.org">
+<head th:replace="~{fragments :: head}"></head>
+
+<body>
+<nav th:replace="~{fragments :: page-header}"></nav>
+<p th:unless="${skills} and ${skills.size()}">no jobs!</p>
+
+<div class="container body-content">
+    <h1>Click Skill to Update</h1>
+    <ul>
+        <li th:each="skill : ${skills}">
+            <a th:href="@{'/skills/delete-skill/' + ${skill.id}}" th:text="${skill.name}"></a>
+        </li>
+    </ul>
+</div>
+
+</body>
+</html>

@@ -30,8 +30,16 @@
             <label th:for="skills">Skills</label>
             <th:block th:each="skillAll : ${skills}">
                 <div th:each="skillById : ${job.skills}">
-                    <input type="checkbox" name="skills" th:value="${skillAll.id}" th:checked="${skillAll.name == skillById.name} ? 'true' : 'false'">
+                    <th:block th:if="${skillAll.name == skillById.name}">
+                        <input type="checkbox" name="skills" th:value="${skillAll.id}" th:checked="true"/>
+                    </th:block>
+
+                    <th:block th:unless="${skillAll.name == skillById.name}">
+                        <input type="checkbox" name="skills" th:value="${skillAll.id}" th:checked="false"/>
+                    </th:block>
+
                     <label th:text="${skillAll.name}"></label>
+
                 </div>
             </th:block>
             <a th:href="@{'/skills/add'}">Add Skills</a>

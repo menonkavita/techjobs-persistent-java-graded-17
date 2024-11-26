@@ -114,15 +114,17 @@ public class HomeController {
         Job jobObj = jobOptional.get();
 
         model.addAttribute("title", "Update Job");
-        model.addAttribute("job", jobObj);
+        model.addAttribute("job", jobObj);  // record returned by PathVariable jobId
         model.addAttribute("employers", employerRepository.findAll());
-        model.addAttribute("skills", skillRepository.findAll());
+        model.addAttribute("skills", skillRepository.findAll());  // All Skills
 
         return "/update";
     }
 
 
     // PostMapping for edit button click
+
+
 
 
     // Delete pick Job to delete @GetMapping

@@ -17,6 +17,7 @@
             </li>
         </ul>
     </p>
+    <p th:unless="${employer} and ${employer.jobs.size()}">No Jobs!</p>
 </div>
 
 </body>
